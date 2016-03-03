@@ -1,0 +1,238 @@
+ html, body {
+   width: 100%;
+   margin: 0;
+   background: white;
+
+ }
+
+h1 {
+  font-family: 'Arvo';
+  font-size: 48px;
+}
+
+h3 {
+  font-size: 22px;
+   font-family: 'Arvo', Helvetica, sans-serif;
+}
+
+ #worldmap {
+   height: 100vh;
+   position: relative;
+ }
+
+ select {
+    position: absolute;
+    top: 13%;
+    left: 3%;
+ }
+
+ .data_title {
+    position: absolute;
+    top: 0%;
+    left: 40%;
+    font-family: 'Arvo';
+    font-size: 18px;
+ }
+
+ .country {
+   fill: #CCCCCC;
+   stroke: black;
+   stroke-width: .7px;
+ }
+
+ .country:hover {
+   stroke: #fff;
+   stroke-width: .7px;
+ }
+
+ div.tooltip {
+   color: #222;
+   background: #fff;
+   padding: .5em;
+   text-shadow: #f5f5f5 0 1px 0;
+   border-radius: 2px;
+   box-shadow: 0px 0px 2px 0px #a6a6a6;
+   opacity: 0.9;
+   position: absolute;
+   z-index: 50;
+ }
+
+.instruction {
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: -25px;
+}
+
+
+hr {
+  border-top: #FDC82F 2px solid;
+  position: relative;
+  top: -12px;
+}
+
+ #key {
+   background:  #BA2126;
+   height: 10%;
+   opacity: .9;
+ }
+
+ #key h3 {
+   color: black;
+   position: relative;
+   font-size: 24px;
+ }
+
+ .countryGraph {
+   background: white;
+   float: left;
+   z-index: 40;
+ }
+ .draggable {
+   position: absolute;
+   width: 530px;
+   height: 220px;
+   background: white;
+   box-sizing: border-box;
+   border-radius: 10px;
+   border: 2px solid #ccc;
+   margin: 10px;
+   top: 50%;
+ }
+
+ .line-tooltip {
+   position: absolute;
+   background: white;
+   padding: 7px;
+   z-index: 10;
+   visibility: hidden;
+   box-sizing: border-box;
+   border: black solid 1px;
+ }
+
+ .chart-container {
+   position: relative;
+ }
+ .axis {
+   font: 10px sans-serif;
+ }
+ .axis path, .axis line {
+   fill: none;
+   stroke: #000;
+   stroke-width: 1;
+   shape-rendering: crispEdges;
+ }
+ .x.axis path {
+   display: none;
+ }
+
+ .line {
+   stroke: #006300;
+   stroke-width: 2;
+   fill: none;
+ }
+
+
+ .graph-box {
+   background: white;
+   width: 100px;
+   height: 100px;
+ }
+
+
+  .overlay {
+    position: absolute;
+    left: 15%;
+    top: 15%;
+  }
+
+ .overlay svg {
+   padding-left: 20px;
+   padding-right: 2px;
+   width: 850px;
+   height: 420px;
+   /*position: absolute;*/
+   /*left: 45%;*/
+   background: white;
+   box-sizing: border-box;
+   border: 2px black solid;
+   border-radius: 10px;
+ }
+
+ .bar.positive {
+   fill: steelblue;
+ }
+ .bar.negative {
+   fill: #D52B1E;
+ }
+ .axis text {
+   font: 10px sans-serif;
+   color: black;
+ }
+ .graph-box {
+   background: white;
+   width: 100px;
+   height: 100px;
+ }
+ .country {
+   /*fill: none;*/
+   fill: #CCCCCC;
+   stroke: black;
+   stroke-width: .7px;
+ }
+ .main-text {
+   font-family: sans-serif;
+   font-size: 9px;
+   fill: black;
+ }
+
+
+ #gradientbox {
+   width: 10px;
+   height: 150px;
+   position: absolute;
+   top: 68%;
+   /*left: 10%;*/
+   background: #e5b21a;
+   background: -moz-linear-gradient(top, #e5b21a 0%, #808080 97%);
+   background: -webkit-linear-gradient(top, #e5b21a 0%, #808080 97%);
+   background: linear-gradient(to bottom, #e5b21a 0%, #808080 97%);
+   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#e5b21a', endColorstr='#8e8771', GradientType=0);
+   pointer-events: none;
+
+
+ }
+ #gradientlabeltop, #gradientlabelbottom {
+   color: black;
+   font-size: 14px;
+   /*position: relative;*/
+ }
+ #gradientlabeltop {
+   position: absolute;
+   top: 68%;
+   left: 3%;
+ }
+ #gradientlabelbottom {
+   position: absolute;
+   top: 83%;
+   left: 3%;
+   line-height: 90%;
+ }
+
+ @media (min-width: 1300px) {
+
+  #gradientbox {
+    top: 80%;
+    }
+
+   #gradientlabeltop {
+     position: absolute;
+     top: 80%;
+     left: 3%;
+   }
+   #gradientlabelbottom {
+     position: absolute;
+     top: 91%;
+     left: 3%;
+     line-height: 90%;
+   }
+}
