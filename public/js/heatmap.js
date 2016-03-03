@@ -64,7 +64,10 @@ $('#history_revew_bnt').on('click',function(argument) {
 	};
 
 	iterate(0, iterate, () => {
-
+		$('#dropdown').val(2000);
+		$('#input_year').val(2000);
+		$('#data_title').text(data_selection + ': ' + year);
+		redrawMap();
 	});
 })
 
@@ -138,6 +141,7 @@ $('.dropdown-menu li').on('click',function(argument) {
 		}).done(function(data) {
 			pushToArray(data);
 			redraw(topo);
+			renderBubble(data);
 			callback && callback();
 		});
 		//topic title update
@@ -319,15 +323,10 @@ $('.dropdown-menu li').on('click',function(argument) {
 		});
 	});
 
-/////////////////Get Heat Map////////////////////////////
-$('.heat_map').on('click',function(argument) {
-	console.log('Switch to Heat Map');
-	redrawMap();
-});
 
-/////////////////Get Bubble Map////////////////////////////
+/////////////////Render Bubble Map Function////////////////////////////
 var renderBubble = function(data) {
-
+	bubble = true;
 	d3.csv("data/countries.csv", function(csv) {
 		var scalefactor = 1/10;
 
@@ -335,6 +334,8 @@ var renderBubble = function(data) {
 	    .data(csv)
 	    .enter()
 	    .append("svg:circle")
+	    .transition(500)
+  		.duration(500).ease("linear")
 	    .attr("cx", function(d, i) { return projection([+d["longitude"],+d["latitude"]])[0]; })
       .attr("cy", function(d, i) { return projection([+d["longitude"],+d["latitude"]])[1]; })
 		  .attr("id", function(d){ return d.name; })
@@ -353,28 +354,40 @@ var renderBubble = function(data) {
 				return (+radius)*scalefactor;
 		   })
 	});
-
-	function redraw(data) {
-		var year = $('#dropdown :selected').text();
-		if (year === "Year List") {year = 2000;}
-    circles.selectAll("circle")
-  	.transition()
-    .duration(500).ease("linear")
-    .attr("r",  function(d) { return (+d[year])*scalefactor; })
-    .attr("title",  function(d) { return d["country"]+": "+Math.round(d[year]); });
-	}
-
 };
 
-$('.bubble_map').on('click',function(argument) {
+/////////////////////RedrawBubble Function//////////////////////
+function redrawBubble(data) {
 	var year = $('#dropdown :selected').text();
 	if (year === "Year List") {year = 2000;}
-	console.log('Switch to Bubble Map');
-	$.ajax({
-		url: "/" + year + `?selection=${data_selection}`,
-		method: "GET",
-		dataType: "json"
-	}).done(renderBubble);
+  circles.selectAll("circle")
+	.transition()
+  .duration(1000).ease("linear")
+  .attr("r",  function(d) { 
+  	var radius = 0;
+		arrayChoropleth.forEach(function(country) {
+				// debugger
+				if(country.country_name[0] === d.name) {
+					radius = country.value*scalefactor;
+					// console.log(country.value*scalefactor);
+				}
+			});
+		return (+radius)*scalefactor;
+  })
+  .attr("title",  function(d) { return d["country"]+": "+Math.round(d[year]); });
+}
+
+///////////////////Show Bubble Map///////////////////////////
+$('.bubble_map').on('click',function(argument) {
+	console.log('Show Bubble Map');
+	redrawMap();
+	circles.classed("hidden", false);
+});
+
+/////////////////Remove Bubble Map////////////////////////////
+$('.heat_map').on('click',function(argument) {
+	console.log('Hide Bubble Map');
+	circles.classed("hidden", true);
 });
 
 
