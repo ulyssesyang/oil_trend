@@ -337,16 +337,7 @@ var renderBubble = function(data) {
 	    .append("svg:circle")
 	    .attr("cx", function(d, i) { return projection([+d["longitude"],+d["latitude"]])[0]; })
       .attr("cy", function(d, i) { return projection([+d["longitude"],+d["latitude"]])[1]; })
-		  .attr("id", function(d){ 
-		  	var name;
-				arrayChoropleth.forEach(function(country) {
-						// debugger
-						if(country.country_name[0] === d.name) {
-							name = d.name;
-						}
-					});
-		  	return name;
-		  })
+		  .attr("id", function(d){ return d.name; })
 		  .attr("class", "node")
 		  .attr('fill','blue')
 		  .attr('opacity',0.5)
@@ -356,22 +347,22 @@ var renderBubble = function(data) {
 						// debugger
 						if(country.country_name[0] === d.name) {
 							radius = country.value*scalefactor;
-							console.log(country.value*scalefactor);
+							// console.log(country.value*scalefactor);
 						}
 					});
 				return (+radius)*scalefactor;
 		   })
 	});
 
-	// function redraw(data) {
-	// 	var year = $('#dropdown :selected').text();
-	// 	if (year === "Year List") {year = 2000;}
- //    circles.selectAll("circle")
- //  	.transition()
- //    .duration(1000).ease("linear")
- //    .attr("r",  function(d) { return (+d[year])*scalefactor; })
- //    .attr("title",  function(d) { return d["country"]+": "+Math.round(d[year]); });
-	// }
+	function redraw(data) {
+		var year = $('#dropdown :selected').text();
+		if (year === "Year List") {year = 2000;}
+    circles.selectAll("circle")
+  	.transition()
+    .duration(500).ease("linear")
+    .attr("r",  function(d) { return (+d[year])*scalefactor; })
+    .attr("title",  function(d) { return d["country"]+": "+Math.round(d[year]); });
+	}
 
 };
 
