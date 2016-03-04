@@ -55,7 +55,7 @@ $('#history_revew_bnt').on('click',function(argument) {
 				} else {
 					setTimeout(() => {
 						next(i, next, callback);
-					}, 200);
+					}, 500);
 				}
 			});	
 		} else {
@@ -347,13 +347,13 @@ var renderBubble = function(data) {
 	    .data(csv)
 	    .enter()
 	    .append("svg:circle")
-	    .transition(500)
-  		.duration(500).ease("linear")
+	    .transition(100)
+  		.duration(100).ease("linear")
 	    .attr("cx", function(d, i) { return projection([+d["longitude"],+d["latitude"]])[0]; })
       .attr("cy", function(d, i) { return projection([+d["longitude"],+d["latitude"]])[1]; })
 		  .attr("id", function(d){ return d.name; })
 		  .attr("class", "node")
-		  .attr('fill','blue')
+		  .attr('fill','#3B5671')
 		  .attr('opacity',0.5)
 		  .attr('r', function(d) {
 		  	var radius = 0;

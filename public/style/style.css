@@ -134,6 +134,17 @@ hr {
    fill: none;
  }
 
+ .node {
+    -webkit-transition-property: r; /* Safari */
+    -webkit-transition-duration: 0.5s; /* Safari */
+    transition-property: r;
+    transition-duration: 0.5s;
+ }
+
+ .node:hover {
+    r: 0;
+}
+
 
  .graph-box {
    background: white;
