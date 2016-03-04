@@ -64,8 +64,9 @@ $('#history_revew_bnt').on('click',function(argument) {
 	};
 
 	iterate(0, iterate, () => {
-		$('#dropdown').val(2000);
-		$('#input_year').val(2000);
+		year = 2000;
+		$('#dropdown :selected').text(year);
+	  $('#input_year').val(year);
 		$('#data_title').text(data_selection + ': ' + year);
 		redrawMap();
 	});
@@ -146,16 +147,21 @@ $('.dropdown-menu li').on('click',function(argument) {
 			// topic title update
 			$('#data_title').text(data_selection + ': ' + year);
 			// update top countries list
-			$('.top_countries').empty();
-			$('.top_countries').append(
-					"<li><p>" + "World: " + data[0].value +"</p></li>"
-					);
 			// debugger
-			var listNum = 16;
-			for (var i = 1; i < listNum; i++) {
-				$('ul.top_countries').append(
-					"<li><p>" + data[i].country_name[0] + ": " + data[i].value +"</li></p>" 
-					);
+			if (data.length>0) {
+				$('.top_countries').empty();
+				$('.top_countries').append(
+						"<li><p>" + "World: " + data[0].value +"</p></li>"
+						);
+				var listNum = 16;
+				if (data.length < listNum) {
+					listNum = data.length;
+				}
+				for (var i = 1; i < listNum; i++) {
+					$('ul.top_countries').append(
+						"<li><p>" + data[i].country_name[0] + ": " + data[i].value +"</li></p>" 
+						);
+				}
 			}
 			callback && callback();
 		});
@@ -359,7 +365,7 @@ var renderBubble = function(data) {
 		  	var radius = 0;
 				arrayChoropleth.forEach(function(country) {
 						// debugger
-						if(country.country_name[0] === d.name) {
+						if(country.country_name[0] === d.name && country.value>0) {
 							radius = country.value*scalefactor;
 							// console.log(country.value*scalefactor);
 						}
