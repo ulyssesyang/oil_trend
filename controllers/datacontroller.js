@@ -34,7 +34,7 @@ module.exports.controller = function(app) {
   //get by year
   app.get('/:year', function(req,res){
     res.set('content-type', 'application/json');
-    CountryModel.find({name: regex(req), country: { $size: 1 } , unit: /Thousand Barrels Per Day/ig , year: new Date(req.params.year)}).sort('value').exec(function (err, coun) {
+    CountryModel.find({name: regex(req), country: { $size: 1 } , unit: /Thousand Barrels Per Day/ig , year: new Date(req.params.year)}).sort({value: -1}).exec(function (err, coun) {
       if (err) return next(err);
       // eval(pry.it);
       console.log(coun);

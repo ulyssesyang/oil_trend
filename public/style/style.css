@@ -75,13 +75,14 @@ hr {
  #key {
    background:  #ccc;
    height: 100%;
-   opacity: .2;
+   opacity: .5;
  }
 
  #key h3 {
    color: black;
    position: relative;
-   font-size: 24px;
+   font-size: 20px;
+   text-align: center;
  }
 
  .countryGraph {

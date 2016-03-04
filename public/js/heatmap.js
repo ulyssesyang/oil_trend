@@ -143,10 +143,22 @@ $('.dropdown-menu li').on('click',function(argument) {
 			pushToArray(data);
 			redraw(topo);
 			renderBubble(data);
+			// topic title update
+			$('#data_title').text(data_selection + ': ' + year);
+			// update top countries list
+			$('.top_countries').empty();
+			$('.top_countries').append(
+					"<li><p>" + "World: " + data[0].value +"</p></li>"
+					);
+			// debugger
+			var listNum = 16;
+			for (var i = 1; i < listNum; i++) {
+				$('ul.top_countries').append(
+					"<li><p>" + data[i].country_name[0] + ": " + data[i].value +"</li></p>" 
+					);
+			}
 			callback && callback();
 		});
-		//topic title update
-		$('#data_title').text(data_selection + ': ' + year);
 	}
 
 	var pushToArray = function(data) {
