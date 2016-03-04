@@ -86,8 +86,9 @@ $('.dropdown-menu li').on('click',function(argument) {
 		.on("zoom", move);
 
 	// setup map size
-	var width = document.getElementById('mapcontainer').offsetWidth + 200;
-	var height = width / 1.5;
+	var width = document.getElementById('mapcontainer').offsetWidth;
+	// var height = width / 1.5;
+	var height = $(window).height() - $('.navbar.navbar-default').height()*2;
 	var topo, projection, path, svg, g, circles;
 	var tooltip = d3.select("#container").append("div").attr("class", "tooltip hidden");
 

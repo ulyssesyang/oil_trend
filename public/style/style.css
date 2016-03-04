@@ -16,7 +16,7 @@ h3 {
 }
 
  #worldmap {
-   height: 100vh;
+   /*height: 100vh;*/
    position: relative;
  }
 
@@ -32,6 +32,8 @@ h3 {
     left: 40%;
     font-family: 'Arvo';
     font-size: 18px;
+    background:  #ccc;
+    opacity: .6;
  }
 
  .country {
@@ -71,9 +73,9 @@ hr {
 }
 
  #key {
-   background:  #BA2126;
-   height: 10%;
-   opacity: .9;
+   background:  #ccc;
+   height: 100%;
+   opacity: .2;
  }
 
  #key h3 {
@@ -190,7 +192,7 @@ hr {
    width: 10px;
    height: 150px;
    position: absolute;
-   top: 68%;
+   bottom: 20%;
    /*left: 10%;*/
    background: #e5b21a;
    background: -moz-linear-gradient(top, #e5b21a 0%, #808080 97%);
@@ -208,17 +210,17 @@ hr {
  }
  #gradientlabeltop {
    position: absolute;
-   top: 68%;
+   top: 55%;
    left: 3%;
  }
  #gradientlabelbottom {
    position: absolute;
-   top: 83%;
+   top: 80%;
    left: 3%;
    line-height: 90%;
  }
 
- @media (min-width: 1300px) {
+ @media (min-width: 1600px) {
 
   #gradientbox {
     top: 80%;
