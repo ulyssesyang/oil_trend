@@ -167,6 +167,7 @@ hr {
    /*position: absolute;*/
    /*left: 45%;*/
    background: white;
+   opacity: .7;
    box-sizing: border-box;
    border: 2px black solid;
    border-radius: 10px;
