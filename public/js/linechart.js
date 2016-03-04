@@ -1,3 +1,8 @@
+
+$(() => {
+	$('.navbar-form').submit(() => false);
+})
+
 var renderLineChart = function(data) {
 
 	console.log('renderLineChart');
