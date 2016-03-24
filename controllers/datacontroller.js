@@ -7,7 +7,6 @@ var CountryModel = require('../models/countries.js');
 module.exports.controller = function(app) {
 
   // data query based on data type name using regex function
-  // var regex = (req) => new RegExp((req.query.selection || 'Total Petroleum Consumption'), 'ig')
   var regex = function(req) { 
     return new RegExp((req.query.selection || 'Total Petroleum Consumption'), 'ig');
   } 

@@ -33,48 +33,53 @@ $(document).ready(function() {
 	}
 
 ////////////////Use Search to get year //////////////////////
-	$('#year_search_bnt').on('click',function(argument) {
-		$('#dropdown').val($('#input_year').val());
-		refreshData();
-	})
+$('#year_search_bnt').on('click',function(argument) {
+	$('#dropdown').val($('#input_year').val());
+	refreshData();
+})
 
 ////////////////Play History Data/////////////////////////////
-	$('#history_revew_bnt').on('click',function(argument) {
-		var iterate = (i, next, callback) => {
-			
-			if (i++ < arrayYears.length) {
-		    console.log(data_selection+ ': ' + arrayYears[i]);
-		    $('#dropdown :selected').text(arrayYears[i]);
-		    $('#input_year').val(arrayYears[i]);
-				refreshData((error) => {
-					if (error) {
-						callback(error);
-					} else {
-						setTimeout(() => {
-							next(i, next, callback);
-						}, 500);
-					}
-				});	
-			} else {
-				callback();
-			}
-		};
+$(function(){
+	$('.navbar-form').submit(function(){return false}); //prevent submit search form
+})
 
-		iterate(0, iterate, () => {
-			year = 2000;
-			$('#dropdown :selected').text(year);
-		  $('#input_year').val(year);
-			$('#data_title').text(data_selection + ': ' + year);
-			refreshData();
-		});
-	})
-
-////////////////Data type selection///////////////////////////
-	$('.dropdown-menu li').on('click',function(argument) {
-		data_selection = $(this).text();
-		$('.data-selection-label').text(data_selection);
+$('#history_revew_bnt').on('click',function(argument) {
+	// recursive to call all year by adding i
+	var iterate = function(i, next, callback){
+		if (i++ < arrayYears.length) {
+	    console.log(data_selection+ ': ' + arrayYears[i]);
+	    $('#dropdown :selected').text(arrayYears[i]);
+	    $('#input_year').val(arrayYears[i]);
+			refreshData(function(error){
+				if (error) {
+					callback(error);
+				} else {
+					// set timer to delay
+					setTimeout(function(){
+						next(i, next, callback);
+					}, 500);
+				}
+			});	
+		} else {
+			callback();
+		}
+	};
+	//after recursive all years, will return to year 2000
+	iterate(0, iterate, function(){
+		year = 2000;
+		$('#dropdown :selected').text(year);
+	  $('#input_year').val(year);
+		$('#data_title').text(data_selection + ': ' + year);
 		refreshData();
 	});
+})
+
+////////////////Data type selection///////////////////////////
+$('.dropdown-menu li').on('click',function(argument) {
+	data_selection = $(this).text();
+	$('.data-selection-label').text(data_selection);
+	refreshData();
+});
 
 //////////////////Initialize D3 SVG MAP///////////////////////////////////
 	d3.select(window).on("resize", throttle);
@@ -144,20 +149,27 @@ $(document).ready(function() {
 			// topic title update
 			$('#data_title').text(data_selection + ': ' + year);
 			// update top countries list
-			// debugger
 			if (data.length>0) {
 				$('.top_countries').empty();
 				$('.top_countries').append(
 						"<li><p>" + "World: " + data[0].value +"</p></li>"
 						);
+				//default top 16 countries
 				var listNum = 16;
+				//if less than 16 countries data, then just list all countries in the data
 				if (data.length < listNum) {
 					listNum = data.length;
 				}
 				for (var i = 1; i < listNum; i++) {
-					$('ul.top_countries').append(
-						"<li><p>" + data[i].country_name[0] + ": " + data[i].value +"</li></p>" 
+					if(data[i].country_name[0]!=undefined) {
+						$('ul.top_countries').append(
+							"<li><p>" + data[i].country_name[0] + ": " + data[i].value +"</li></p>" 
 						);
+					} else {
+						$('ul.top_countries').append(
+							"<li><p>" + data[i].country[0] + ": " + data[i].value +"</li></p>" 
+						);
+					}
 				}
 			}
 			callback && callback();
@@ -189,6 +201,7 @@ $(document).ready(function() {
 	};
 	populate2000Array();
 
+/////////////////////Redraw Topo map////////////////////////////
 	function redraw() {
 		d3.select('.map').remove();
 		setup(width, height);
@@ -208,6 +221,7 @@ $(document).ready(function() {
 
 	}
 
+///////////////////////Set timer for redraw topo map////////////
 	var throttleTimer;
 
 	function throttle() {
