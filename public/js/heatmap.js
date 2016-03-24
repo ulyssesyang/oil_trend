@@ -1,15 +1,8 @@
-window.arrayChoropleth = [];
-window.redrawMap = function(callback) {
-	arrayChoropleth = [];
-	populateArray(callback)
-};
-
 $(document).ready(function() {
-
 
 	console.log('onload');
 //////////////////////Global Variable Initialize//////////////////////////////
-	
+	var arrayChoropleth = [];
 	var array2000 = [];
 	var data_selection = 'Total Petroleum Consumption';
 	var last_url;
@@ -19,6 +12,10 @@ $(document).ready(function() {
 	"1990","1991","1992","1993","1994","1995","1996","1997","1998","1999",
 	"2000","2001","2002","2003","2004","2005","2006","2007","2008","2009",
 	"2010","2011","2012","2013","2014");
+	var refreshData = function(callback) {
+		arrayChoropleth = [];
+		populateArray(callback)
+	};
 
 //////////////////Initialize Dropdown list//////////////////////
 	var selObj = $('#dropdown');
@@ -36,48 +33,48 @@ $(document).ready(function() {
 	}
 
 ////////////////Use Search to get year //////////////////////
-$('#year_search_bnt').on('click',function(argument) {
-	$('#dropdown').val($('#input_year').val());
-	redrawMap();
-})
+	$('#year_search_bnt').on('click',function(argument) {
+		$('#dropdown').val($('#input_year').val());
+		refreshData();
+	})
 
 ////////////////Play History Data/////////////////////////////
-$('#history_revew_bnt').on('click',function(argument) {
-	var iterate = (i, next, callback) => {
-		
-		if (i++ < arrayYears.length) {
-	    console.log(data_selection+ ': ' + arrayYears[i]);
-	    $('#dropdown :selected').text(arrayYears[i]);
-	    $('#input_year').val(arrayYears[i]);
-			redrawMap((error) => {
-				if (error) {
-					callback(error);
-				} else {
-					setTimeout(() => {
-						next(i, next, callback);
-					}, 500);
-				}
-			});	
-		} else {
-			callback();
-		}
-	};
+	$('#history_revew_bnt').on('click',function(argument) {
+		var iterate = (i, next, callback) => {
+			
+			if (i++ < arrayYears.length) {
+		    console.log(data_selection+ ': ' + arrayYears[i]);
+		    $('#dropdown :selected').text(arrayYears[i]);
+		    $('#input_year').val(arrayYears[i]);
+				refreshData((error) => {
+					if (error) {
+						callback(error);
+					} else {
+						setTimeout(() => {
+							next(i, next, callback);
+						}, 500);
+					}
+				});	
+			} else {
+				callback();
+			}
+		};
 
-	iterate(0, iterate, () => {
-		year = 2000;
-		$('#dropdown :selected').text(year);
-	  $('#input_year').val(year);
-		$('#data_title').text(data_selection + ': ' + year);
-		redrawMap();
-	});
-})
+		iterate(0, iterate, () => {
+			year = 2000;
+			$('#dropdown :selected').text(year);
+		  $('#input_year').val(year);
+			$('#data_title').text(data_selection + ': ' + year);
+			refreshData();
+		});
+	})
 
 ////////////////Data type selection///////////////////////////
-$('.dropdown-menu li').on('click',function(argument) {
-	data_selection = $(this).text();
-	$('.data-selection-label').text(data_selection);
-	populateArray();
-});
+	$('.dropdown-menu li').on('click',function(argument) {
+		data_selection = $(this).text();
+		$('.data-selection-label').text(data_selection);
+		refreshData();
+	});
 
 //////////////////Initialize D3 SVG MAP///////////////////////////////////
 	d3.select(window).on("resize", throttle);
@@ -121,7 +118,7 @@ $('.dropdown-menu li').on('click',function(argument) {
 ///////////////////////////update Heat Map base on input year///////
 	$('#input_year').change(function () {
 		$('#dropdown').val($(this).val());
-		redrawMap();
+		refreshData();
 	})
 
 ///////////////////////////Initialize world topo map/////////////////
@@ -306,7 +303,7 @@ $('.dropdown-menu li').on('click',function(argument) {
 	}
 
 /////////////////////Redraw Map Whenver Select Year//////////////////
-	$('select').on('change', redrawMap);
+	$('select').on('change', refreshData);
 
 /////////////////////Render Country History Line Graph////////////////
 	var showGraphContainer = function(d, i) {
@@ -399,7 +396,7 @@ function redrawBubble(data) {
 ///////////////////Show Bubble Map///////////////////////////
 $('.bubble_map').on('click',function(argument) {
 	console.log('Show Bubble Map');
-	redrawMap();
+	refreshData();
 	circles.classed("hidden", false);
 });
 
