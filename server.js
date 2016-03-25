@@ -1,20 +1,15 @@
 var express 			= require('express'),
 		logger 				= require('morgan'),
-		bodyParser 		= require('body-parser'),
 		mongoose 			= require('mongoose'),
-		fs 						= require('fs'),
-		app 					= express();
+		fs 						= require('fs');
 
 // all environments
+var app = express();
 app.use(logger('dev'));
-app.use(bodyParser.urlencoded({
-	extended: true
-}));
-app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(express.static(`${__dirname}/public`));
 
-//Connect to mongodb
+//Connect to mongodb in the cloud server or local server database
 var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://localhost/energy-data';
 mongoose.connect(mongoUrl, function (err) {
   if(err){
@@ -30,7 +25,7 @@ app.listen(port, function () {
   console.log('App listening on port '+port+'...');
 });
 
-// Controllers
+//use fs to load controller file
 fs.readdirSync('./controllers').forEach(function (file) {
   if(file.substr(-3) == '.js') {
       route = require('./controllers/' + file);

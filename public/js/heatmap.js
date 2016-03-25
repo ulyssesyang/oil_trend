@@ -330,7 +330,9 @@ $('.dropdown-menu li').on('click',function(argument) {
 			url: "/countries/" + d.properties.name + '?selection=' + data_selection,
 			method: "GET",
 			dataType: "json"
-		}).done(renderLineChart);
+		}).done(function(data){
+			renderLineChart(data);
+		});
 		// $.getJSON(`/countries/${d.properties.name}`, renderAllGraphs);
 	};
 
@@ -385,27 +387,6 @@ var renderBubble = function(data) {
 		   })
 	});
 };
-
-/////////////////////RedrawBubble Function//////////////////////
-function redrawBubble(data) {
-	var year = $('#dropdown :selected').text();
-	if (year === "Year List") {year = 2000;}
-  circles.selectAll("circle")
-	.transition()
-  .duration(1000).ease("linear")
-  .attr("r",  function(d) { 
-  	var radius = 0;
-		arrayChoropleth.forEach(function(country) {
-				// debugger
-				if(country.country_name[0] === d.name) {
-					radius = country.value*scalefactor;
-					// console.log(country.value*scalefactor);
-				}
-			});
-		return (+radius)*scalefactor;
-  })
-  .attr("title",  function(d) { return d["country"]+": "+Math.round(d[year]); });
-}
 
 ///////////////////Show Bubble Map///////////////////////////
 $('.bubble_map').on('click',function(argument) {

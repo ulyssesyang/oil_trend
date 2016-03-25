@@ -13,7 +13,6 @@ module.exports.controller = function(app) {
 
   //get by world
   app.get('/countries', function(req, res) {
-    res.set('content-type', 'application/json');
     CountryModel.find({name: regex(req), year: {$lt: new Date('2014'), $gt: new Date(1980)}, country: /WLD/ig, unit: /Thousand Barrels Per Day/ig }).sort('year').exec(function(err, countries) {
       if (err) return next(err);
       // eval(pry.it);
@@ -24,23 +23,21 @@ module.exports.controller = function(app) {
 
   //get by country
 	app.get('/countries/:country', function(req,res){
-    res.set('content-type', 'application/json');
-	  CountryModel.find({name: regex(req), year: {$lt: new Date('2014'), $gt: new Date(1980)}, country: { $size: 1 } , unit: /Thousand Barrels Per Day/ig , country_name: [req.params.country] }).sort('year').exec(function (err, coun) {
+	  CountryModel.find({name: regex(req), year: {$lt: new Date('2014'), $gt: new Date(1980)}, country: { $size: 1 } , unit: /Thousand Barrels Per Day/ig , country_name: [req.params.country] }).sort('year').exec(function (err, country) {
 			if (err) return next(err);
       // eval(pry.it);
-      console.log(coun);
-	    res.send(coun);
+      console.log(country);
+	    res.send(country);
 	  });
 	});
 
   //get by year
   app.get('/:year', function(req,res){
-    res.set('content-type', 'application/json');
-    CountryModel.find({name: regex(req), country: { $size: 1 } , unit: /Thousand Barrels Per Day/ig , year: new Date(req.params.year)}).sort({value: -1}).exec(function (err, coun) {
+    CountryModel.find({name: regex(req), country: { $size: 1 } , unit: /Thousand Barrels Per Day/ig , year: new Date(req.params.year)}).sort({value: -1}).exec(function (err, country) {
       if (err) return next(err);
       // eval(pry.it);
-      console.log(coun);
-      res.send(coun);
+      console.log(country);
+      res.send(country);
     });
   });
 
