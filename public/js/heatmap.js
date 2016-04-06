@@ -324,7 +324,7 @@ $('.dropdown-menu li').on('click',function(argument) {
 		var mouse = d3.mouse(svg.node()).map(function(d) {
 			return parseInt(d);
 		});
-
+		$("body").append('<div id="loading"><img id="loading_img" src="/images/loading.gif" height="64px" width="64px"></div>');
 		last_url = `/countries/${d.properties.name}?selection=${data_selection}`;
 		$.ajax({
 			url: "/countries/" + d.properties.name + '?selection=' + data_selection,
@@ -332,6 +332,7 @@ $('.dropdown-menu li').on('click',function(argument) {
 			dataType: "json"
 		}).done(function(data){
 			renderLineChart(data);
+			$('#loading').remove();
 		});
 		// $.getJSON(`/countries/${d.properties.name}`, renderAllGraphs);
 	};
@@ -340,15 +341,19 @@ $('.dropdown-menu li').on('click',function(argument) {
 	$('#world_trend').on('click', function(){
 		$('.overlay').empty();
 		var worldGraph = function() {
+			$("body").append('<div id="loading"><img id="loading_img" src="/images/loading.gif" height="64px" width="64px"></div>');
 			last_url = `/countries?selection=${data_selection}`;
-			// debugger
 			$.ajax({
 				url: "/countries" + '?selection=' + data_selection,
 				method: "GET",
 				dataType: "json"
-			}).done(renderWorld);
+			}).done( function(data) {
+				renderWorld(data);
+				$('#loading').remove();
+			});
 		};
 		worldGraph();
+		$('img#loading').remove();
 		$('.overlay').css('display', 'inline-block');
 		$('#mapcontainer').on('click', function(){
 			$('.overlay').empty();
