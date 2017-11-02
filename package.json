@@ -10,7 +10,6 @@
   "author": "ulyssesyang",
   "license": "ISC",
   "dependencies": {
-    "bower": "^1.8.2",
     "body-parser": "^1.15.0",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
@@ -22,7 +21,8 @@
     "request": "^2.69.0"
   },
   "devDependencies": {
-    "bower": "^1.7.7",
+    "bower": "^1.8.2",
+    "eslint": "^4.10.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
