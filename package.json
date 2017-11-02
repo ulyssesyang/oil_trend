@@ -1,11 +1,11 @@
 {
     "name": "oil_trend",
     "version": "1.0.0",
-    "main": "server.js",
+    "main": "app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "postinstall": "node_modules/.bin/bower install --allow-root",
-        "start": "node server.js"
+        "start": "node app.js"
     },
     "author": "ulyssesyang",
     "license": "ISC",
