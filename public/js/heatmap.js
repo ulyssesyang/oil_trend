@@ -19,11 +19,15 @@ $(document)
 								function loadingStatus(changeState) {
 												if (changeState) {
 																loadingState = changeState;
+																$("input").attr("disabled", changeState);
+																$("button").attr("disabled", changeState);
 																$("body").append("<div id=\"loading\"><img id=\"loading_img\" src=\"/images/loading.gif\" height=" +
 																								"\"64px\" width=\"64px\"></div>");
 												} else {
 																$("#loading").remove();
 																loadingState = changeState;
+																$("input").attr("disabled", changeState);
+																$("button").attr("disabled", changeState);
 												}
 								}
 
@@ -158,8 +162,10 @@ $(document)
 								///////////////////////////update Heat Map base on input year///////
 								$("#input_year")
 												.change(function () {
-																$("#dropdown").val($(this).val());
-																refreshData();
+																if (!loadingState) {
+																				$("#dropdown").val($(this).val());
+																				refreshData();
+																}
 												});
 
 								///////////////////////////Initialize world topo map/////////////////
@@ -173,11 +179,10 @@ $(document)
 
 								var populateArray = function (callback) {
 												var year = $("#dropdown :selected").text();
-												// debugger
 												if (year === "Year List") {
 																year = 2000;
 												}
-
+												loadingStatus(true);
 												$
 																.ajax({
 																				url: "/" + year + `?selection=${data_selection}`,
@@ -188,6 +193,7 @@ $(document)
 																				pushToArray(data);
 																				redraw(topo);
 																				renderBubble(data);
+																				loadingStatus(false);
 																				// topic title update
 																				$("#data_title").text(data_selection + ": " + year);
 																				// update top countries list

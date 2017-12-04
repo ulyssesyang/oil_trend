@@ -164,7 +164,7 @@
  }
  
  .node:hover {
-     r: 0;
+     r: 10;
  }
  
  .graph-box {
