@@ -192,7 +192,7 @@ $(document)
 																.done(function (data) {
 																				pushToArray(data);
 																				redraw(topo);
-																				renderBubble(data);
+																				renderBubble(data, circles, projection, arrayChoropleth);
 																				loadingStatus(false);
 																				// topic title update
 																				$("#data_title").text(data_selection + ": " + year);
@@ -429,59 +429,17 @@ $(document)
 												});
 								});
 
-								/////////////////Render Bubble Map Function////////////////////////////
-								var renderBubble = function (data) {
-												bubble = true;
-												d3.csv("data/countries.csv", function (csv) {
-																var scalefactor = 1 / 10;
-
-																circles
-																				.selectAll("circle")
-																				.data(csv)
-																				.enter()
-																				.append("svg:circle")
-																				.transition(100)
-																				.duration(100)
-																				.ease("linear")
-																				.attr("cx", function (d, i) {
-																								return projection([ + d["longitude"], + d["latitude"]
-																								])[0];
-																				})
-																				.attr("cy", function (d, i) {
-																								return projection([ + d["longitude"], + d["latitude"]
-																								])[1];
-																				})
-																				.attr("id", function (d) {
-																								return d.name;
-																				})
-																				.attr("class", "node")
-																				.attr("fill", "#3B5671")
-																				.attr("opacity", 0.5)
-																				.attr("r", function (d) {
-																								var radius = 0;
-																								arrayChoropleth.forEach(function (country) {
-																												// debugger
-																												if (country.country_name[0] === d.name && country.value > 0) {
-																																radius = country.value * scalefactor;
-																																// console.log(country.value*scalefactor);
-																												}
-																								});
-																								return (+ radius) * scalefactor;
-																				});
-												});
-								};
-
-								///////////////////Show Bubble Map///////////////////////////
-								$(".bubble_map").on("click", function (argument) {
-												console.log("Show Bubble Map");
-												refreshData();
-												circles.classed("hidden", false);
-								});
-
-								/////////////////Remove Bubble Map////////////////////////////
-								$(".heat_map").on("click", function (argument) {
-												console.log("Hide Bubble Map");
-												circles.classed("hidden", true);
+								///////////////////Show or Hide Bubble Map///////////////////////////
+								$(".bubble_map").on("click", function () {
+												if ($("input[type='checkbox']").is(":checked")) {
+																console.log("Show Bubble Map");
+																// refreshData();
+																circles.classed("hidden", false);
+												} else {
+																console.log("Hide Bubble Map");
+																// refreshData();
+																circles.classed("hidden", true);
+												}
 								});
 
 				}); //end onload

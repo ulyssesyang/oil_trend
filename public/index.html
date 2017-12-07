@@ -2,140 +2,156 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title> Oil Trend </title>
-  <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style/style.css">
-  <link href="/images/oil.png" rel="icon" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <title> Oil Trend </title>
+    <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/toggle-button.css">
+    <link href="/images/oil.png" rel="icon" type="image/x-icon" />
 
 </head>
 
 <body>
 
-  <!-- Header -->
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    <!-- Header -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" id="world_trend" href="#">Oil Trend</a>
-      </div>
+                <a class="navbar-brand" id="world_trend" href="#">Oil Trend</a>
+            </div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="heat_map"><a href="#">HEAT MAP <span class="sr-only">(current)</span></a></li>
-          <li class="bubble_map"><a href="#">BUBBLE MAP</a></li>
-        </ul>
-        <form class="navbar-form navbar-left" role="search">
-          <div class="form-group">
-            <label for="input_year">Input Year</label>
-            <input type="number" class="form-control" id="input_year" placeholder="Input Year" value=2000>
-          </div>
-          <button type="submit" id="year_search_bnt" class="btn btn-default">Search</button>
-          <button class="btn btn-default" id="history_revew_bnt">History Review</button>
-        </form>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="data-selection-label">Data Selection</span> <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Total Petroleum Consumption</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Production of Crude Oil including Lease Condensate</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Total Petroleum and Other Liquids Production</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Exports of Crude Oil including Lease Condensate</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Imports of Crude Oil including Lease Condensate</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-  <!-- end Header -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <!-- Rounded switch -->
+                    <li>
+                        <label style="margin-top:15px">BUBBLE MAP</lable>
+                  </li>
+                  <li>
+                      <label class="switch" style="margin-top:8px">
+                          <input class="bubble_map" type="checkbox" checked>
+                          <span class="slider round"></span>
+                      </label>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <label for="input_year">Input Year</label>
+                        <input type="number" class="form-control" id="input_year" placeholder="Input Year" value=2000>
+                    </div>
+                    <button type="submit" id="year_search_bnt" class="btn btn-default">Search</button>
+                    <button class="btn btn-default" id="history_revew_bnt">History Review</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="data-selection-label">Data Selection</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Total Petroleum Consumption</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Production of Crude Oil including Lease Condensate</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Total Petroleum and Other Liquids Production</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Exports of Crude Oil including Lease Condensate</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Imports of Crude Oil including Lease Condensate</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- end Header -->
 
-  <!-- Map -->
-  <div id="container">
+    <!-- Map -->
+    <div id="container">
 
-    <div id="worldmap">
+        <div id="worldmap">
 
-      <div class="col-md-10" id="mapcontainer">
+            <div class="col-md-10" id="mapcontainer">
 
-        <div class="dropdown">
-          <select id="dropdown">
+                <div class="dropdown">
+                    <select id="dropdown">
             <option value="" >Year List</option>
           </select>
+                </div>
+
+                <div class="data_title">
+                    <p id="data_title"></p>
+                </div>
+
+                <div id="gradientbox"></div>
+                <p id="gradientlabeltop">
+                    maximum value
+                </p>
+                <p id="gradientlabelbottom">
+                    minimum value
+                    <br> or undocumented
+                </p>
+            </div>
+
+            <div class="col-md-2" id="key">
+                <h3>Top Countries</h3>
+                <p>(Thousand Barrels/Day)
+                    <p>
+                        <ul class="top_countries">
+                        </ul>
+            </div>
+
+            <div class="overlay"></div>
         </div>
-
-        <div class="data_title">
-          <p id="data_title"></p>
-        </div>
-
-        <div id="gradientbox"></div>
-        <p id="gradientlabeltop">
-          maximum value
-        </p>
-        <p id="gradientlabelbottom">
-          minimum value
-          <br>
-          or undocumented
-        </p>
-      </div>
-
-      <div class="col-md-2" id="key">
-        <h3>Top Countries</h3>
-        <p>(Thousand Barrels/Day)<p>
-        <ul class="top_countries">
-        </ul>
-      </div>
-
-      <div class="overlay"></div>
     </div>
-  </div>
-  <!-- end div container -->
+    <!-- end div container -->
 
-  <!-- Footer -->
-  <nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    <!-- Footer -->
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-      </div>
-      <a class="navbar-brand" href="https://www.linkedin.com/in/ulyssesyangyu"><p>&copy;Yu Yang</p></a>
+            </div>
+            <a class="navbar-brand" href="https://www.linkedin.com/in/ulyssesyangyu">
+                <p>&copy;Yu Yang</p>
+            </a>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="http://www.eia.gov/opendata/bulkfiles.cfm">Data Source: Energy Information Administration - EIA</a></li>
-          <li><a href="#">Terms of Use</a></li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-  <!-- end Footer -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="http://www.eia.gov/opendata/bulkfiles.cfm">Data Source: Energy Information Administration - EIA</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- end Footer -->
 
-  <!-- SCRIPTS -->
-  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="/bower_components/d3/d3.min.js"></script>
-  <script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
-  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="/bower_components/topojson/topojson.js"></script>
-  <script src="js/heatmap.js" charset="utf-8"></script>
-  <script src="js/linechart.js" charset="utf-8"></script>
-  <script src="js/worldlinechart.js" charset="utf-8"></script>
+    <!-- SCRIPTS -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/d3/d3.min.js"></script>
+    <script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/topojson/topojson.js"></script>
+    <script src="js/bubblemap.js" charset="utf-8"></script>
+    <script src="js/linechart.js" charset="utf-8"></script>
+    <script src="js/worldlinechart.js" charset="utf-8"></script>
+    <script src="js/heatmap.js" charset="utf-8"></script>
 
 </body>
 
