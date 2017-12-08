@@ -10,7 +10,7 @@ app.use(express.static("public"));
 app.use(express.static(`${__dirname}/public`));
 
 // Connect to mongodb in the cloud server or local server database
-var mongoUrl = process.env.MONGOLAB_URI || "mongodb://localhost/energy-data";
+var mongoUrl = process.env.LOCALMONGO_URI || process.env.MONGOLAB_URI;
 mongoose.connect(mongoUrl, function (err) {
   if (err) {
     console.log(err);
