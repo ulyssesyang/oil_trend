@@ -1,7 +1,6 @@
 var express = require("express"),
   logger = require("morgan"),
-  mongoose = require("mongoose"),
-  fs = require("fs");
+  mongoose = require("mongoose");
 
 // all environments
 var app = express();
@@ -10,7 +9,7 @@ app.use(express.static("public"));
 app.use(express.static(`${__dirname}/public`));
 
 // Connect to mongodb in the cloud server or local server database
-var mongoUrl = process.env.LOCALMONGO_URI || process.env.MONGOLAB_URI;
+var mongoUrl = process.env.LOCALMONGO || process.env.MONGOLAB_URI;
 mongoose.connect(mongoUrl, function (err) {
   if (err) {
     console.log(err);
@@ -25,12 +24,6 @@ app.listen(port, function () {
   console.log("App listening on port " + port + "...");
 });
 
-// use fs to load controller file
-fs
-  .readdirSync("./controllers")
-  .forEach(function (file) {
-    if (file.substr(-3) === ".js") {
-      var route = require("./controllers/" + file);
-      route.controller(app);
-    }
-  });
+// Setup route for handling query
+var route = require("./controllers/datacontroller");
+route.controller(app);

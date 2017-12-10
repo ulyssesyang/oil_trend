@@ -1,4 +1,4 @@
-function renderHeatmap(g, topo, geo_path, countries_arr, tooltip, showGraphContainer) {
+function renderHeatmap(g, svg, topo, geo_path, countries_arr, tooltip, showGraphContainer, loadingState, width, height) {
 				var country = g
 								.selectAll(".country")
 								.data(topo);

@@ -228,7 +228,7 @@ $(document)
                 .done(function (data) {
                     pushToArray(data);
                     redraw(topo);
-                    renderBubble(data, circles, projection, countries_arr);
+                    renderBubble(circles, projection, countries_arr);
                     loadingStatus(false);
                     // topic title update
                     $("#data_title").text(data_selection + ": " + year_selection);
@@ -458,11 +458,9 @@ $(document)
         $(".bubble_map").on("click", function () {
             if ($("input[type='checkbox']").is(":checked")) {
                 console.log("Show Bubble Map");
-                // refreshData();
                 circles.classed("hidden", false);
             } else {
                 console.log("Hide Bubble Map");
-                // refreshData();
                 circles.classed("hidden", true);
             }
         });

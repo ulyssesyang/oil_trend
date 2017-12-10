@@ -22,14 +22,7 @@
         "request": "^2.69.0"
     },
     "devDependencies": {
-        "bower": "^1.8.2",
-        "eslint": "^4.10.0",
-        "eslint-config-defaults": "^9.0.0",
-        "eslint-config-standard": "^10.2.1",
-        "eslint-plugin-import": "^2.8.0",
-        "eslint-plugin-node": "^5.2.1",
-        "eslint-plugin-promise": "^3.6.0",
-        "eslint-plugin-standard": "^3.0.1"
+        "bower": "^1.8.2"
     },
     "description": ""
 }

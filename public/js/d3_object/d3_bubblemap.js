@@ -1,23 +1,24 @@
-/////////////////Render Bubble Map Function////////////////////////////
-var renderBubble = function (circles, projection, countries_arr) {
-    bubble = true;
-    console.log('render bubble map');
-    d3.csv("data/countries.csv", function (csv) {
-        var scalefactor = 1 / 10;
+import {projection, circles} from './d3_object/d3_init.js';
+import {getLatLong} from '../data_service/data_prepare.js';
+
+// Render Bubble Map Function
+export function renderBubble(countries_arr, callback) {
+    getLatLong(function (LatLong) {
+        let scalefactor = 1 / 10;
         circles
             .selectAll("circle")
-            .data(csv)
+            .data(LatLong)
             .enter()
             .append("svg:circle")
             .transition(100)
             .duration(100)
             .ease("linear")
             .attr("cx", function (d, i) {
-                return projection([ + d["longitude"], + d["latitude"]
+                return projection([ + d.longitude, + d.latitude
                 ])[0];
             })
             .attr("cy", function (d, i) {
-                return projection([ + d["longitude"], + d["latitude"]
+                return projection([ + d.longitude, + d.latitude
                 ])[1];
             })
             .attr("id", function (d) {
@@ -29,13 +30,15 @@ var renderBubble = function (circles, projection, countries_arr) {
             .attr("r", function (d) {
                 var radius = 0;
                 countries_arr.forEach(function (country) {
-                    // debugger
                     if (country.country_name[0] === d.name && country.value > 0) {
                         radius = country.value * scalefactor;
-                        // console.log(country.value*scalefactor);
                     }
                 });
                 return (+ radius) * scalefactor;
             });
+
+        if (callback && typeof callback === "function") {
+            callback(true);
+        }
     });
-};
+}

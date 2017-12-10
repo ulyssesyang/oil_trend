@@ -1,9 +1,10 @@
-////////////////Play History Data/////////////////////////////
+// Play History Data
 $(function () {
+    //prevent submit search form
     $(".navbar-form")
         .submit(function () {
             return false;
-        }); //prevent submit search form
+        });
 });
 
 $("#history_revew_bnt").on("click", function () {
@@ -35,11 +36,4 @@ $("#history_revew_bnt").on("click", function () {
         $("#data_title").text(data_selection + ": " + year_selection);
         refreshData();
     });
-});
-
-////////////////Data type selection///////////////////////////
-$(".dropdown-menu li").on("click", function (argument) {
-    data_selection = $(this).text();
-    $(".data-selection-label").text(data_selection);
-    refreshData();
 });
